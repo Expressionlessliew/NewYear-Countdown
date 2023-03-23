@@ -1,58 +1,35 @@
-function timeLeft(endtime){
-    var t = Date.parse(endtime) - Date.parse(new Date());
-    var seconds = Math.floor( (t/1000) % 60 );
-    var minutes = Math.floor( (t/1000/60) % 60 );
-    var hours = Math.floor( (t/(1000*60*60)) % 24 );
-    var days = Math.floor( t/(1000*60*60*24) );
-    return {
-      'total': t,
-      'days': days,
-      'hours': hours,
-      'minutes': minutes,
-      'seconds': seconds
-    };
-  };
+const days = document.getElementById("day");
+const hours = document.getElementById("hour");
+const minits = document.getElementById("minute");
+const seconds = document.getElementById("second");
+const years = document.getElementById("newYear");
+
+const enddate = new Date(new Date().getFullYear() + 1, 0, 1, 00, 00);
+const endtime = enddate.getTime();
+
+function countdown() {
+  let currentDate = new Date();
+  let currentime = currentDate.getTime();
+  let remainingtime = endtime - currentime;
+
+  let oneminit = 60 * 1000;
+  let onehr = 60 * oneminit;
+  let oneDay = 24 * onehr;
+
+  let daysleft = Math.floor(remainingtime / oneDay);
+  let hrsleft = Math.floor((remainingtime % oneDay) / onehr);
+  let minsleft = Math.floor((remainingtime % onehr) / oneminit);
+  let secsleft = Math.floor((remainingtime % oneminit) / 1000);
   
-  $(document).ready(function() {
-    var today = new Date();
-    var deadline = 'January 1 ' + (today.getFullYear() + 1) + " 00:00:00";
-    if (today.getMonth() == 0 && today.getDate() == 1) {
-      deadline = 'January 1 ' + (today.getFullYear()) + " 00:00:00";
-    };
-    
-    $("#header").hover(function() {
-      $(this).toggleClass('bluelight');
-    });
-    
-    $(".clock").hover(function() {
-      $(this).toggleClass('bluelight');
-    });
-    
-    var setClock = function(newyear){
-      var timeinterval = setInterval(function(){
-        var t = timeLeft(newyear);
-        $('#days').text(t.days);
-        $('#hours').text(t.hours);
-        $('#mins').text(('0' + t.minutes).slice(-2));
-        $('#secs').text(('0' + t.seconds).slice(-2));
-        if(t.total<=0){
-          clearInterval(timeinterval);
-          var now = new Date();
-          var yearStr = now.getFullYear().toString();
-          $('#header').text("Happy New Year!!!");
-          $('#days').text(yearStr[0]);
-          $('#days-text').text("Happy");
-          $('#hours').text(yearStr[1]);
-          $('#hours-text').text("New");
-          $('#mins').text(yearStr[2]);
-          $('#mins-text').text("Year");
-          $('#secs').text(yearStr[3]);
-          $('#secs-text').text("!!!");
-          $('#info').text("Countdown starts again tomorrow!");
-        }
-      },1000);
-    };
-    
-    setClock(deadline);
-    
-  });
+  let newYear = new Date().getFullYear() + 1
+
+  days.innerHTML = daysleft;
+  hours.innerHTML = hrsleft;
+  minits.innerHTML = minsleft;
+  seconds.innerHTML = secsleft;
+  years.innerHTML = newYear;
+
+}
+setInterval(countdown, 1000);
+
+console.log(enddate);

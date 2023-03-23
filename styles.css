@@ -31,14 +31,14 @@ body {
     font-size: 10em;
     line-height: 0.7em;
     color: #333;
-    margin-top: -80px;
+    /* margin-top: -80px; */
 }
 
-.container h2 span{
-    display: block;
+.container h1{
     font-weight: 300;
     letter-spacing: 6px;
-    font-size: 0.2em;
+    font-size: 3em;
+    margin-bottom: 30px;
 }
 
 .countdown {
